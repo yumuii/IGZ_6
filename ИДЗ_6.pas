@@ -14,38 +14,50 @@ type
   end;
 
 var
-  file_shops: text;
-  file_products: text;
-  products: array of product;
-  n, i: integer;
-  line_1, line_2: string;
+  shops: array of string;
+  products: array of string;
+
+
+procedure read_file(file_name: string; var arr: array of string);
+var
+  f: text;
+  line: string;
+  count: integer;
+begin
+  count := 0;
+  assign(f, file_name);
+  reset(f);
+  while not Eof(f) do
+  begin
+    readln(f, line);
+    count := count + 1;
+    setlength(arr, count);
+    arr[count - 1] := line;
+  end;
+  close(f); 
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 begin
-  //сначала поработаю с файлами shops и products
   
-  assign(file_shops, 'shops.txt');
-  reset(file_shops);
-  while not Eof(file_shops) do
-  begin
-    readln(file_shops, line_1);
-    writeln(line_1);
-  end;
-  close(file_shops); 
-  
-  
-  assign(file_products, 'products.txt');
-  reset(file_products);
-  while not Eof(file_products) do
-  begin
-    readln(file_products, line_2);
-    writeln(line_2);
-  end;
-  
-  //надо записать данные файлов в массивы
-  
-  
-  //writeln('Введите количество продуктов: '); readln(n);
-  //SetLength(products,n);
+  read_file('shops.txt', shops);
+  read_file('products.txt', products);
+
+  writeln(shops);
+  writeln(products);
   
 end.

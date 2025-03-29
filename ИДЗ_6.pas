@@ -4,12 +4,14 @@
 type
     shop = record
         name: string;
+        products: array of string;
     end;
 
 
 type
     product = record
         name: string;
+        availability: boolean;
     
     end;
 
@@ -18,8 +20,8 @@ var
     products: array of product;
     test_shops: array of string;
     test_products: array of string;
-    i: integer;
-    
+    i, j: integer;
+
 procedure read_file(file_name: string; var arr: array of string);
 var
     f: text;
@@ -39,6 +41,30 @@ begin
     close(f); 
 end;
 
+procedure linker;
+var
+    product_i, shop_i: integer;
+    i, j: integer;
+begin
+    randomize;
+    for i := 0 to high(products) do
+        products[i].availability := False;
+  
+    for i := 0 to high(shops) do
+    begin
+        setlength(shops[i].products, 1 + random(5));
+        
+        for j := 0 to high(shops[i].products) do
+        begin
+            product_i := random(length(test_products));
+            shops[i].products[j] := test_products[product_i];
+            products[product_i].availability := True;
+        end;
+    end;
+end;
+
+
+
 
 
 begin
@@ -54,5 +80,6 @@ begin
     for i := 0 to high(test_products) do
         products[i].name := test_products[i];
     
+    linker;
     
 end.

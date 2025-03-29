@@ -10,14 +10,16 @@ type
 type
     product = record
         name: string;
-        shops: array of shop;
+    
     end;
 
 var
-    shops: array of string;
-    products: array of string;
-
-
+    shops: array of shop;
+    products: array of product;
+    test_shops: array of string;
+    test_products: array of string;
+    i: integer;
+    
 procedure read_file(file_name: string; var arr: array of string);
 var
     f: text;
@@ -39,25 +41,18 @@ end;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 begin
     
-    read_file('shops.txt', shops);
-    read_file('products.txt', products);
+    read_file('shops.txt', test_shops);
+    read_file('products.txt', test_products);
     
-    writeln(shops);
-    writeln(products);
+    setlength(shops, length(test_shops));
+    for i := 0 to high(test_shops) do
+        shops[i].name := test_shops[i];
+    
+    setlength(products, length(test_products));
+    for i := 0 to high(test_products) do
+        products[i].name := test_products[i];
+    
     
 end.
